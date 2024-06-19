@@ -12,7 +12,23 @@
 		DA04728E2C22C5DC00586677 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA04728D2C22C5DC00586677 /* ViewController.swift */; };
 		DA0472932C22C5DD00586677 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA0472922C22C5DD00586677 /* Assets.xcassets */; };
 		DA0472962C22C5DD00586677 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DA0472952C22C5DD00586677 /* Base */; };
+		DA589E6D2C22D95F0005A340 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = DA589E6C2C22D95F0005A340 /* SnapKit-Dynamic */; };
+		DA589E6E2C22D98A0005A340 /* SnapKit-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DA589E6C2C22D95F0005A340 /* SnapKit-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA589E6F2C22D98A0005A340 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA589E6E2C22D98A0005A340 /* SnapKit-Dynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DA0472862C22C5DC00586677 /* Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Browser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA589E6D2C22D95F0005A340 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +91,16 @@
 				DA0472822C22C5DC00586677 /* Sources */,
 				DA0472832C22C5DC00586677 /* Frameworks */,
 				DA0472842C22C5DC00586677 /* Resources */,
+				DA589E6F2C22D98A0005A340 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Browser;
+			packageProductDependencies = (
+				DA589E6C2C22D95F0005A340 /* SnapKit-Dynamic */,
+			);
 			productName = Browser;
 			productReference = DA0472862C22C5DC00586677 /* Browser.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +129,9 @@
 				Base,
 			);
 			mainGroup = DA04727D2C22C5DC00586677;
+			packageReferences = (
+				DA589E692C22D95F0005A340 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = DA0472872C22C5DC00586677 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -347,6 +371,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA589E692C22D95F0005A340 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA589E6C2C22D95F0005A340 /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA589E692C22D95F0005A340 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DA04727E2C22C5DC00586677 /* Project object */;
 }
