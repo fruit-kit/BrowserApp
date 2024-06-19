@@ -12,23 +12,31 @@ import SnapKit
 import WebKit
 
 class ViewController: UIViewController {
+    
+    let webView = WKWebView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .white
+        
         setupWebView()
+        
+        setupSearchBar()
         
     }
     
     private func setupWebView() {
         
-        let webView = WKWebView()
-        
         self.view.addSubview(webView)
         
         webView.snp.makeConstraints { make in
             
-            make.edges.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            
+            make.leading.trailing.equalToSuperview()
+            
+            make.height.equalToSuperview().multipliedBy(0.8)
             
         }
         
@@ -37,6 +45,26 @@ class ViewController: UIViewController {
             let request = URLRequest(url: url)
             
             webView.load(request)
+            
+        }
+        
+    }
+    
+    private func setupSearchBar() {
+        
+        let searchBar = UISearchBar()
+        
+        searchBar.placeholder = "Search or enter website"
+        
+        self.view.addSubview(searchBar)
+        
+        searchBar.snp.makeConstraints { make in
+            
+            make.leading.trailing.equalToSuperview()
+            
+            make.top.equalTo(self.webView.snp.bottom)
+            
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
             
         }
         
