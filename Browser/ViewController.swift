@@ -13,12 +13,16 @@ import WebKit
 
 class ViewController: UIViewController {
     
+    // MARK: - Outlets
+    
     let webView = WKWebView()
-
+    
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         
         setupWebView()
         
@@ -26,9 +30,11 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: - Private Methods
+    
     private func setupWebView() {
         
-        self.view.addSubview(webView)
+        view.addSubview(webView)
         
         webView.snp.makeConstraints { make in
             
@@ -56,15 +62,15 @@ class ViewController: UIViewController {
         
         searchBar.placeholder = "Search or enter website"
         
-        self.view.addSubview(searchBar)
+        view.addSubview(searchBar)
         
         searchBar.snp.makeConstraints { make in
             
             make.leading.trailing.equalToSuperview()
             
-            make.top.equalTo(self.webView.snp.bottom)
+            make.top.equalTo(webView.snp.bottom)
             
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
             
         }
         
