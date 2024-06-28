@@ -90,6 +90,8 @@ class ViewController: UIViewController {
         
         let reloadButton = UIButton()
         
+        reloadButton.addTarget(self, action: #selector(reloadButtonPressed), for: .touchUpInside)
+        
         reloadButton.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
         
         stackView.addArrangedSubview(reloadButton)
@@ -123,6 +125,12 @@ class ViewController: UIViewController {
     @objc private func goBackButtonPressed() {
         
         webView.goBack()
+        
+    }
+    
+    @objc private func reloadButtonPressed() {
+        
+        webView.reload()
         
     }
     
