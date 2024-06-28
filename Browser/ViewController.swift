@@ -94,11 +94,13 @@ class ViewController: UIViewController {
         
         stackView.addArrangedSubview(reloadButton)
         
-        let rightButton = UIButton()
+        let goForwardButton = UIButton()
         
-        rightButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        goForwardButton.addTarget(self, action: #selector(goForwardButtonPressed), for: .touchUpInside)
         
-        stackView.addArrangedSubview(rightButton)
+        goForwardButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        
+        stackView.addArrangedSubview(goForwardButton)
         
         stackView.axis = .horizontal
         
@@ -121,6 +123,12 @@ class ViewController: UIViewController {
     @objc private func goBackButtonPressed() {
         
         webView.goBack()
+        
+    }
+    
+    @objc private func goForwardButtonPressed() {
+        
+        webView.goForward()
         
     }
     
