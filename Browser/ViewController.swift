@@ -80,11 +80,13 @@ class ViewController: UIViewController {
     
     private func setupStackView() {
         
-        let leftButton = UIButton()
+        let goBackButton = UIButton()
         
-        leftButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        goBackButton.addTarget(self, action: #selector(goBackButtonPressed), for: .touchUpInside)
         
-        stackView.addArrangedSubview(leftButton)
+        goBackButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        
+        stackView.addArrangedSubview(goBackButton)
         
         let reloadButton = UIButton()
         
@@ -113,6 +115,12 @@ class ViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             
         }
+        
+    }
+    
+    @objc private func goBackButtonPressed() {
+        
+        webView.goBack()
         
     }
     
