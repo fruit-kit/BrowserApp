@@ -80,11 +80,19 @@ class ViewController: UIViewController {
     
     private func setupStackView() {
         
+        let buttonHeight = 50
+        
         let goBackButton = UIButton()
         
         goBackButton.addTarget(self, action: #selector(goBackButtonPressed), for: .touchUpInside)
         
         goBackButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        
+        goBackButton.snp.makeConstraints { make in
+            
+            make.height.equalTo(buttonHeight)
+            
+        }
         
         stackView.addArrangedSubview(goBackButton)
         
@@ -94,6 +102,12 @@ class ViewController: UIViewController {
         
         reloadButton.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
         
+        reloadButton.snp.makeConstraints { make in
+            
+            make.height.equalTo(buttonHeight)
+            
+        }
+        
         stackView.addArrangedSubview(reloadButton)
         
         let goForwardButton = UIButton()
@@ -101,6 +115,12 @@ class ViewController: UIViewController {
         goForwardButton.addTarget(self, action: #selector(goForwardButtonPressed), for: .touchUpInside)
         
         goForwardButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        
+        goForwardButton.snp.makeConstraints { make in
+            
+            make.height.equalTo(buttonHeight)
+            
+        }
         
         stackView.addArrangedSubview(goForwardButton)
         
