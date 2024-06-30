@@ -28,6 +28,8 @@ class ViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        addSubviews()
+        
         setupWebView()
         
         setupSearchBar()
@@ -36,11 +38,19 @@ class ViewController: UIViewController {
         
     }
     
+    private func addSubviews() {
+        
+        view.addSubview(webView)
+        
+        view.addSubview(searchBar)
+        
+        view.addSubview(stackView)
+        
+    }
+    
     // MARK: - Private Methods
     
     private func setupWebView() {
-        
-        view.addSubview(webView)
         
         webView.snp.makeConstraints { make in
             
@@ -48,7 +58,7 @@ class ViewController: UIViewController {
             
             make.leading.trailing.equalToSuperview()
             
-            make.height.equalToSuperview().multipliedBy(0.75)
+            make.bottom.equalTo(searchBar.snp.top)
             
         }
         
@@ -66,13 +76,13 @@ class ViewController: UIViewController {
         
         searchBar.placeholder = "Search or enter website"
         
-        view.addSubview(searchBar)
-        
         searchBar.snp.makeConstraints { make in
             
             make.leading.trailing.equalToSuperview()
             
             make.top.equalTo(webView.snp.bottom)
+            
+            make.bottom.equalTo(stackView.snp.top)
             
         }
         
@@ -84,6 +94,8 @@ class ViewController: UIViewController {
         
         let goBackButton = UIButton()
         
+        stackView.addArrangedSubview(goBackButton)
+        
         goBackButton.addTarget(self, action: #selector(goBackButtonPressed), for: .touchUpInside)
         
         goBackButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -94,9 +106,9 @@ class ViewController: UIViewController {
             
         }
         
-        stackView.addArrangedSubview(goBackButton)
-        
         let reloadButton = UIButton()
+        
+        stackView.addArrangedSubview(reloadButton)
         
         reloadButton.addTarget(self, action: #selector(reloadButtonPressed), for: .touchUpInside)
         
@@ -108,9 +120,9 @@ class ViewController: UIViewController {
             
         }
         
-        stackView.addArrangedSubview(reloadButton)
-        
         let goForwardButton = UIButton()
+        
+        stackView.addArrangedSubview(goForwardButton)
         
         goForwardButton.addTarget(self, action: #selector(goForwardButtonPressed), for: .touchUpInside)
         
@@ -122,13 +134,9 @@ class ViewController: UIViewController {
             
         }
         
-        stackView.addArrangedSubview(goForwardButton)
-        
         stackView.axis = .horizontal
         
         stackView.distribution = .fillEqually
-        
-        view.addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
             
