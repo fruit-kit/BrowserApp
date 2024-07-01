@@ -74,6 +74,8 @@ class ViewController: UIViewController {
     
     private func setupSearchBar() {
         
+        searchBar.delegate = self
+        
         searchBar.placeholder = "Search or enter website"
         
         searchBar.snp.makeConstraints { make in
@@ -167,5 +169,9 @@ class ViewController: UIViewController {
         webView.goForward()
         
     }
+    
+}
+
+extension ViewController: UISearchBarDelegate {
     
 }
