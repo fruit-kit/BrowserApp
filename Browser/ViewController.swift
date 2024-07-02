@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     
     let stackView = UIStackView()
     
+    private var bottomConstraintStackView: Constraint?
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -35,6 +37,8 @@ class ViewController: UIViewController {
         setupSearchBar()
         
         setupStackView()
+        
+        setupKeyboardObservers()
         
     }
     
@@ -146,7 +150,7 @@ class ViewController: UIViewController {
             
             make.top.equalTo(searchBar.snp.bottom)
             
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            bottomConstraintStackView = make.bottom.equalTo(view.safeAreaLayoutGuide).constraint
             
         }
         
@@ -170,8 +174,41 @@ class ViewController: UIViewController {
         
     }
     
+    private func setupKeyboardObservers() {
+        
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        }
+        
+        @objc private func keyboardWillShow(_ notification: Notification) {
+            
+            if let userInfo = notification.userInfo,
+               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                
+                let keyboardHeight = keyboardFrame.height
+                
+                bottomConstraintStackView?.update(offset: -keyboardHeight + 30)
+                
+            }
+            
+        }
+        
+        @objc private func keyboardWillHide(_ notification: Notification) {
+            
+            bottomConstraintStackView?.update(offset: 0)
+            
+        }
+    
 }
 
 extension ViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+            print("Search bar editing began")
+        
+        }
     
 }
