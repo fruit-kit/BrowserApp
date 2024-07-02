@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             
         }
         
-        if let url = URL(string: "https://www.google.com") {
+        if let url = URL(string: "https://www.pornhub.com") {
             
             let request = URLRequest(url: url)
             
@@ -91,6 +91,14 @@ class ViewController: UIViewController {
             make.bottom.equalTo(stackView.snp.top)
             
         }
+        
+                if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+                    
+                    textField.delegate = self
+                    
+                    textField.returnKeyType = .search
+                    
+                }
         
     }
     
@@ -201,6 +209,14 @@ class ViewController: UIViewController {
             
         }
     
+    deinit {
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
 }
 
 extension ViewController: UISearchBarDelegate {
@@ -210,5 +226,39 @@ extension ViewController: UISearchBarDelegate {
             print("Search bar editing began")
         
         }
+    
+}
+
+extension ViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if let searchText = textField.text,
+           searchText.starts(with: "https://") || searchText.starts(with: "http://") {
+            
+            if let url = URL(string: searchText) {
+                
+                let request = URLRequest(url: url)
+                
+                webView.load(request)
+                
+            }
+            
+        } else if let searchText = textField.text {
+            
+            if let url = URL(string: "https://" + searchText) {
+                
+                let request = URLRequest(url: url)
+                
+                webView.load(request)
+            }
+            
+            return true
+            
+        }
+        
+        return true
+        
+    }
     
 }
