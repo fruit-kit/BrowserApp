@@ -78,8 +78,6 @@ class ViewController: UIViewController {
     
     private func setupSearchBar() {
         
-        searchBar.delegate = self
-        
         searchBar.placeholder = "Search or enter website"
         
         searchBar.snp.makeConstraints { make in
@@ -92,13 +90,13 @@ class ViewController: UIViewController {
             
         }
         
-                if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-                    
-                    textField.delegate = self
-                    
-                    textField.returnKeyType = .search
-                    
-                }
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+            
+            textField.delegate = self
+            
+            textField.returnKeyType = .search
+            
+        }
         
     }
     
@@ -164,6 +162,14 @@ class ViewController: UIViewController {
         
     }
     
+    private func setupKeyboardObservers() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
     @objc private func goBackButtonPressed() {
         
         webView.goBack()
@@ -182,32 +188,24 @@ class ViewController: UIViewController {
         
     }
     
-    private func setupKeyboardObservers() {
+    @objc private func keyboardWillShow(_ notification: Notification) {
         
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        }
-        
-        @objc private func keyboardWillShow(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             
-            if let userInfo = notification.userInfo,
-               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                
-                let keyboardHeight = keyboardFrame.height
-                
-                bottomConstraintStackView?.update(offset: -keyboardHeight + 30)
-                
-            }
+            let keyboardHeight = keyboardFrame.height
+            
+            bottomConstraintStackView?.update(offset: -keyboardHeight + 30)
             
         }
         
-        @objc private func keyboardWillHide(_ notification: Notification) {
-            
-            bottomConstraintStackView?.update(offset: 0)
-            
-        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        
+        bottomConstraintStackView?.update(offset: 0)
+        
+    }
     
     deinit {
         
@@ -216,16 +214,6 @@ class ViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
-    
-}
-
-extension ViewController: UISearchBarDelegate {
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
-            print("Search bar editing began")
-        
-        }
     
 }
 
@@ -251,6 +239,7 @@ extension ViewController: UITextFieldDelegate {
                 let request = URLRequest(url: url)
                 
                 webView.load(request)
+                
             }
             
             return true
