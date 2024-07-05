@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     
     let stackView = UIStackView()
     
+    // MARK: - Properties
+    
     private var bottomConstraintStackView: Constraint?
     
     // MARK: - View Lifecycle
@@ -42,6 +44,8 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: - Private Methods
+    
     private func addSubviews() {
         
         view.addSubview(webView)
@@ -51,8 +55,6 @@ class ViewController: UIViewController {
         view.addSubview(stackView)
         
     }
-    
-    // MARK: - Private Methods
     
     private func setupWebView() {
         
@@ -216,6 +218,8 @@ class ViewController: UIViewController {
     }
     
 }
+
+// MARK: - Extensions
 
 extension ViewController: UITextFieldDelegate {
     
